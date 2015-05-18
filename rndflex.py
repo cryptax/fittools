@@ -12,6 +12,8 @@ $ python rndflex.py -b 16
 a1 2e 89 da f5 db 5e 77 
 c8 2d f1 7a d2 84 3c 21 
 
+You can set seed by calling getRandom manually.
+
 Troubleshooting:
 1/ Use -v to understand where the problem occurs.
 2/ The most frequent error originates from timeout issues. There may be several 

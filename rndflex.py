@@ -164,10 +164,9 @@ def exhaustPipe(endpoint=0x82,length=32,timeout=2000, verbose=False):
             if verbose:
                 displayPacket(response, endpoint)
         except usb.core.USBError as usbexception:
+            # we have exhausted the pipe if we receive a timeout error
             if usbexception.errno != 110: # TIMEOUT
                 raise
-            # else 
-            # we have exhausted the pipe
             break
     return fullResponse
 
@@ -270,7 +269,7 @@ def discover(timeout=500, verbose=False):
     cancelDiscovery(timeout, verbose=verbose)
 
 
-def togglePipe(value=0, timeout=500, verbose=False):
+def togglePipe(value=0, timeout=1000, verbose=False):
     '''Send Toggle Tx Pipe
     value is 0 for disable, 1 for enable
     '''
@@ -281,7 +280,7 @@ def togglePipe(value=0, timeout=500, verbose=False):
     sendData(endpoint=0x02, data=data, timeout=timeout, verbose=verbose)
 
     # c0 0b
-    readResponse(endpoint=0x81,timeout=10000,verbose=verbose)
+    readResponse(endpoint=0x81,timeout=8000,verbose=verbose)
 
 
 def establishLink(trackerId='516706E749CF', addrType=1, serviceUuid='4f1e', timeout=500, verbose=False):
@@ -400,6 +399,7 @@ def writeRandom2file(filename, amount=800, verbose=True):
         print ''.join('{:02x} '.format(x) for x in random_buffer)
     else:
         f.write(bytearray(random_buffer))
+        f.flush()
 
     # subsequent calls use established air link
     for i in range(1, loops):
@@ -408,6 +408,7 @@ def writeRandom2file(filename, amount=800, verbose=True):
             print ''.join('{:02x} '.format(x) for x in random_buffer)
         else:
             f.write(bytearray(random_buffer))
+            f.flush()
 
     if filename is not None:
         f.close()

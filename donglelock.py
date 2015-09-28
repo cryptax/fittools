@@ -64,6 +64,9 @@ def remove_event(observer, device):
         if verbose:
             display_device_attributes(device)
         print "You have just removed the monitored device!"
+        # customize this command with your own!
+        subprocess.call(["mate-screensaver-command", "--lock"])
+        quit()
         
 
 def monitor():

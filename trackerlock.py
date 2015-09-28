@@ -6,6 +6,8 @@ __status__ = "Alpha"
 __copyright__ = "Copyright 2015, Fortinet, Fortiguard Labs"
 __license__ = "MIT License"
 
+Customize the lock() function with your own command to perform when the
+tracker is away
 '''
 import argparse
 import usb.core
@@ -313,7 +315,9 @@ def selectTracker(verbose=False):
         previous_rssi = mytracker.rssi
 
 def lock(verbose=False):
-    '''Locks the screen'''
+    '''Locks the screen
+    Customize this function with your own command to lock the screen (or other action)
+    '''
     if verbose:
         print "Locking screen"
     subprocess.call(["mate-screensaver-command", "--lock"])

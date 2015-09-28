@@ -12,6 +12,9 @@ $ python rndflex.py -b 16
 a1 2e 89 da f5 db 5e 77 
 c8 2d f1 7a d2 84 3c 21 
 
+Customize establishLink with your own tracker's MAC address:
+def establishLink(trackerId='09737863F7F3', ...
+
 Troubleshooting:
 1/ Use -v to understand where the problem occurs.
 2/ The most frequent error originates from timeout issues. There may be several 
@@ -183,33 +186,6 @@ def sendData(endpoint=0x02, data=0, timeout=500, verbose=False):
         print "sendData(): Resource busy usually means you need to unclaim the device"
 
 # --------------------------------- Dongle messages --------------------
-def getDongleInformation(timeout=500, verbose=False):
-    '''Sends a Get Dongle Information request
-    Reads the Get Dongle Information response - waiting at most for timeout seconds
-    Displays the dongle version, MAC address and response packet
-    Returns the response packet.
-    '''
-    if verbose:
-        print "Get Dongle Info..."
-
-    # send Get Dongle Info Request
-    data = [ 0x02, 0x01 ]
-    sendData(endpoint=0x02, data=data, timeout=timeout, verbose=verbose)
-
-    # read Get Dongle Info Response
-    response = device.read(0x82, 32, timeout)
-    assert len(response) > 10, "Bad Dongle Info Response!"
-    maj = response[2]
-    min = response[3]
-    mac = response[4:10]
-    
-    if verbose:
-        print "Dongle: version %d.%d" % (maj, min)
-        print "Dongle MAC address: %s " % (':'.join('{:02x}'.format(x) for x in mac))
-        displayPacket(response, 0x82)
-
-    return response
-
 def dongleReset(timeout=500, verbose=False):
     '''Resets/disconnects the dongle.
     Usually, the dongle replies by a Cancel Discovery information message
@@ -283,7 +259,7 @@ def togglePipe(value=0, timeout=1000, verbose=False):
     readResponse(endpoint=0x81,timeout=8000,verbose=verbose)
 
 
-def establishLink(trackerId='516706E749CF', addrType=1, serviceUuid='4f1e', timeout=500, verbose=False):
+def establishLink(trackerId='09737863F7F3', addrType=1, serviceUuid='4f1e', timeout=500, verbose=False):
     '''Sends an Establish Link request to a given tracker, and reads the response'''
     if verbose:
         print "Establish Link with tracker %s and serviceUUID=%s" % (trackerId, serviceUuid)
@@ -306,11 +282,6 @@ def establishLink(trackerId='516706E749CF', addrType=1, serviceUuid='4f1e', time
 
     # 02 07 Now it is established!
     readResponse(verbose=verbose)
-
-def terminateAirLink(timeout=500, verbose=False):
-    '''Terminates the air link, reads the potential responses'''
-    sendData(endpoint=0x02, data=[0x02, 0x07], timeout=timeout, verbose=verbose)
-    exhaustPipe(verbose=verbose)
 
 # ------------------------------------- Tracker messages ---------------------------
 

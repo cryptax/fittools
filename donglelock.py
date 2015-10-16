@@ -9,6 +9,9 @@ __license__ = "MIT License"
 Interesting refs:
 https://stackoverflow.com/questions/469243/how-can-i-listen-for-usb-device-inserted-events-in-linux-in-python
 http://pyudev.readthedocs.org/en/latest/api/pyudev.glib.html#pyudev.glib.MonitorObserver
+
+Requires python-pyudev
+
 '''
 import glib
 from pyudev import Context, Monitor

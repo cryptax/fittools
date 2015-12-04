@@ -587,7 +587,7 @@ def getMinidump(show_packets=False):
     print "Initializing Air Link..."
     getAirLink(show_packets=show_packets)
     print "Getting tracker firmware..."
-    packet = getDump(microdump.type, show_packets=show_packets)
+    packet = getDump(minidump.type, show_packets=show_packets)
     print "Received tracker firmware: "
     print minidump(packet)
 

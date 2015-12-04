@@ -10,4 +10,6 @@ Use at your own risk.
 
 * trackerlock.py: locks your screen when you walk away from the dongle (on your laptop)
 
+* dongle-version.py: quick utility to report the version of your USB dongle. 
+
 

@@ -12,4 +12,7 @@ Use at your own risk.
 
 * dongle-version.py: quick utility to report the version of your USB dongle. 
 
+# Requirements
+
+* Pyudev 1.0+: http://sourceforge.net/projects/pyusb
 

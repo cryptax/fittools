@@ -14,6 +14,8 @@ This has NOT been tested over Windows.
 
 Use responsibly.
 Use at your own risk!!!
+
+Requires pyusb: http://sourceforge.net/projects/pyusb
 """
 
 import usb.core

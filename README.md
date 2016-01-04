@@ -14,5 +14,31 @@ Use at your own risk.
 
 # Requirements
 
+* Python 2.7
 * Pyudev 1.0+: http://sourceforge.net/projects/pyusb
+
+# Install
+
+1. In /etc/udev/rules.d/99-fitbit.rules:
+
+```
+SUBSYSTEM=="usb", ATTR{idVendor}=="2687", ATTR{idProduct}=="fb01", OWNER="YOURUSER", GROUP="plugdev", SYMLINK+="fitbit", MODE="0666"
+```
+
+and customize YOURUSER to the user who will use the Fitbit device on the host.
+
+2. Load the new udev config:
+
+```
+$ sudo udevadm control --reload-rules
+$ sudo udevadm trigger
+```
+
+3. Install requirements
+
+4. Play :) For example:
+
+```
+$ python talk2flex.py
+```
 

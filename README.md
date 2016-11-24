@@ -51,6 +51,8 @@ $ python talk2flex.py
 
 * read-battery.py: utility to read the battery level of a Fitbit Flex using a standard BLE USB dongle.
 
+Disclaimer: this tool is for 'research'. Using it repeatedly may affect your battery life and communication to your tracker. Use at your own risk.
+
 ### Requirements
 
 * a Bluetooth Low Energy (BLE 4.0) USB dongle (does **not** work with Fitbit's USB dongle)
